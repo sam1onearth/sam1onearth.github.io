@@ -1,3 +1,6 @@
+
+
+/*
 function maFonction()
 {
     alert("Le JavaScript fonctionne !")
@@ -18,7 +21,24 @@ function foncVert()
 function modifMessage() {
             document.querySelector(".para").innerHTML = "Bravo, vous avez cliqué sur le bouton !"
             }
+*/
+alert("hi")
 
 
-let x ="5"+1+2;
-print(x)
+function handleArrowKeys(event) {
+    switch (event.key) {
+        case 'ArrowUp':
+            alert("u")
+            break;
+        case 'ArrowDown':
+            alert("d")
+            break;
+        case 'ArrowLeft':
+            alert("left")
+            break;
+        case 'ArrowRight':
+            alert("r")
+            break;
+    }
+}
+
