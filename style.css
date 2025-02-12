@@ -1,0 +1,73 @@
+
+
+h1
+{
+text-align: center;
+background-color: red;
+}
+h2
+{
+font-family: Verdana;
+font-style: italic;
+color: green;
+}
+.para
+{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;  
+    color: rgb(11, 12, 11); 
+}
+.para_class
+{
+font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+font-style: italic;  
+color: rgb(66, 175, 39); 
+}
+.rouge {
+    color:red;
+    font-size:20px;
+    }
+.vert 
+{
+    color:green;
+    font-size:30px;
+ }
+
+
+  .loop {
+      display: flex;
+      width: fit-content;
+      animation-name: loop;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-direction: normal;
+      animation-duration: 15000ms;
+      position:absolute;
+        height: X px;
+        width: Y px;
+        left:50%;
+        top:50%;
+        margin-top:- X/2 px;
+        margin-left:- Y/2 px;
+
+  }
+
+  
+  @keyframes loop {
+    0% {
+      
+      transform: translateX(-100%);
+      
+    }
+    33%{
+      transform: translateX(100%);
+    
+    }
+    66%{
+      transform: translateX(-100%);
+    }
+    100%{
+      transform: translateX(100%);
+    }
+  }
+        
