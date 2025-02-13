@@ -1,117 +1,83 @@
-const img = document.querySelector("#movable");  // Select the image
-let posX = 50;  // Starting position on X-axis
-let posY = 50;  // Starting position on Y-axis
-let speed = 0;  // Initial speed
-let acceleration = 0.05;  // Rate at which speed increases
-let deceleration = 0.05;  // Rate at which speed decreases when no key is pressed
+const img = document.querySelector("#movable");
+let posX = 50;  // X position
+let posY = 50;  // Y position
+let speed = 0;  // Speed starts at 0
+let acceleration = 0.2;  // Acceleration rate
+let deceleration = 0.05; // Deceleration rate
+let rotation = 0;  // Rotation angle
+let maxSpeed = 10;  // Limit max speed
+let brakespeed = 1;
 
-let movingUp = false, movingDown = false, movingLeft = false, movingRight = false;  // Track key states
-let last_touched = '';  // Track the last direction the image was moving in
-
+let movingForward = false;
+let turningLeft = false;
+let turningRight = false;
+let brake = false;
 function moveImage() {
-    // Move based on key states
-    if (movingUp) {
-        posY -= speed;  // Move up
-        last_touched = "up";  // Record last movement direction
+    if (movingForward) {
+        speed = Math.min(maxSpeed, speed + acceleration); // Increase speed with acceleration
+    } else {
+        speed = Math.max(0, speed - deceleration); // Apply deceleration
+    } 
+    if (brake) {
+        speed = Math.max(0, speed - brakespeed);  // Braking deceleration (faster stop)
+    } else {
+        speed = Math.max(0, speed - deceleration);  // Regular deceleration
     }
-    if (movingDown) {
-        posY += speed;  // Move down
-        last_touched = "down";  // Record last movement direction
-    }
-    if (movingLeft) {
-        posX -= speed;  // Move left
-        last_touched = "left";  // Record last movement direction
-    }
-    if (movingRight) {
-        posX += speed;  // Move right
-        last_touched = "right";  // Record last movement direction
-    }
+ 
+    // Convert rotation angle to movement direction
+    let angleRad = (rotation * Math.PI) / 180; // Convert degrees to radians
+    let velocityX = Math.cos(angleRad) * speed;
+    let velocityY = Math.sin(angleRad) * speed;
 
-    // If no keys are pressed, move in the last direction and apply deceleration
-    if (!movingUp && !movingDown && !movingLeft && !movingRight && last_touched) {
-        if (last_touched === "up") posY -= speed;
-        if (last_touched === "down") posY += speed;
-        if (last_touched === "left") posX -= speed;
-        if (last_touched === "right") posX += speed;
-        
-        // Apply deceleration when no key is pressed
-        speed = Math.max(0, speed - deceleration);
-    }
+    // Apply movement
+    posX += velocityX;
+    posY += velocityY;
 
-    // Apply the new position to the image
-    img.style.transform = `translate(${posX.toFixed(2)}px, ${posY.toFixed(2)}px)`;  
-    document.getElementById("output").textContent = `Speed: ${speed.toFixed(2)}`;
+    // Apply rotation (only on left/right)
+    if (turningLeft) rotation -= 3;  // Adjust rotation speed as needed
+    if (turningRight) rotation += 3;
+
+    // Apply transform (move + rotate)
+    img.style.transform = `translate(${posX.toFixed(2)}px, ${posY.toFixed(2)}px) rotate(${rotation}deg)`;
+
+    requestAnimationFrame(moveImage);
 }
 
-function handleArrowKeys(event) {
+function handleKeyDown(event) {
     switch (event.key) {
         case "ArrowUp":
-            movingUp = true;
-            movingDown = false;
-            movingLeft = false;
-            movingRight = false;
-            last_touched = "up";  // Record the last movement direction
+            movingForward = true;
             break;
         case "ArrowDown":
-            movingDown = true;
-            movingUp = false;
-            movingLeft = false;
-            movingRight = false;
-            last_touched = "down";  // Record the last movement direction
+            brake = true;
             break;
         case "ArrowLeft":
-            movingLeft = true;
-            movingUp = false;
-            movingDown = false;
-            movingRight = false;
-            last_touched = "left";  // Record the last movement direction
+            turningLeft = true;
             break;
         case "ArrowRight":
-            movingRight = true;
-            movingUp = false;
-            movingDown = false;
-            movingLeft = false;
-            last_touched = "right";  // Record the last movement direction
+            turningRight = true;
             break;
     }
 }
 
-function stopMovement(event) {
+function handleKeyUp(event) {
     switch (event.key) {
         case "ArrowUp":
-            movingUp = false;
+            movingForward = false;
             break;
         case "ArrowDown":
-            movingDown = false;
+            brake = false;
             break;
         case "ArrowLeft":
-            movingLeft = false;
+            turningLeft = false;
             break;
         case "ArrowRight":
-            movingRight = false;
+            turningRight = false;
             break;
     }
 }
 
-function updateSpeed() {
-    // If keys are pressed, accelerate
-    if (movingUp || movingDown || movingLeft || movingRight) {
-        speed += acceleration;  // Increase speed
-    }
-    // Optional: Add a maximum speed cap (e.g., max speed of 10)
-    speed = Math.min(speed, 10);  // Cap the speed to 10 (adjust this value as needed)
-}
+document.addEventListener("keydown", handleKeyDown);
+document.addEventListener("keyup", handleKeyUp);
 
-function animate() {
-    updateSpeed();  // Update speed
-    moveImage();  // Move the image
-    requestAnimationFrame(animate);  // Loop the animation
-}
-
-document.addEventListener("keydown", handleArrowKeys); 
-document.addEventListener("keyup", stopMovement);  
-
-
-
-
-animate(); 
+moveImage();  // Start the animation loop
