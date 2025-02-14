@@ -43,13 +43,19 @@ function moveImage() {
     } else {img.src="lucacar.png"}
     if (checkCollision(img,hole)){
         img.src = "lucacar2.png"; // 
-    } else {img.src="lucacar.png"}
+        img.height -=10;
+        img.width -=10;
+    } else {img.src="lucacar.png";
+        img.height = 50;
+        img.width = 50;
+    }
+    
    
 
 
 
 
-    function checkCollision(obj1, obj2) {
+function checkCollision(obj1, obj2) {
         try {
             let rect1 = obj1.getBoundingClientRect();
             let rect2 = obj2.getBoundingClientRect();
