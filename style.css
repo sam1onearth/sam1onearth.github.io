@@ -1,7 +1,11 @@
+
 #obstacle
 {
-
-}
+  height: auto;
+  width: auto;
+  position: absolute;  
+  top: 0px;  
+  left:50%;  }
 
 #movable {
   position: absolute;
@@ -10,33 +14,42 @@
   width: 50px;
   height: 50px;
 }
+#hole
+{
+  height: auto;
+  width: auto;
+  position: absolute;  
+  top: 0px;  
+  left:50%;
+}
+
+
+
+
+
 #output {
   color: rgb(20, 40, 33);
 }
-
-/* Movable image */
-#movable {
-  position: absolute;  /* Absolute positioning to move freely */
+  #movable {
+  position: absolute;  
   left: 50px;
   top: 50px;
   width: 50px;
   height: 50px;
 }
 
-/* Styling for red text */
+
 .rouge {
   color: red;
   font-size: 20px;
   text-decoration: underline;
 }
 
-/* Styling for green text */
 .vert {
   color: green;
   font-size: 30px;
 }
 
-/* Centering the loop container */
 .loop {
   position: absolute;
   top: 50%;
