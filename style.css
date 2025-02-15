@@ -14,19 +14,13 @@
   width: 65px;
   height: 65px;
 }
-#hole
-{
-  height: auto;
-  width: auto;
+#hole {
+  height: 50%;
+  width: 30%;
   position: absolute;  
-  top: 0px;  
-  left:50%;
+  bottom: 0;  
+  right:0;
 }
-
-
-
-
-
 #output {
   color: rgb(20, 40, 33);
 }
@@ -48,4 +42,10 @@
   left: 50%;
   transform: translate(-50%, -50%);
   transform: rotate(0deg);
+}
+
+html, body {
+  overflow: hidden;
+  height: 100%;
+  margin: 0;
 }
