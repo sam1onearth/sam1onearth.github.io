@@ -13,6 +13,8 @@ const obstacle = document.getElementById("obstacle");
 const hole = document.getElementById("hole");
 const hiddenLink = document.getElementById("hiddenLink");
 const minSize = 20; 
+const feedback = document.getElementById("feedback");
+
 
 let movingForward = false;
 let turningLeft = false;
@@ -20,6 +22,8 @@ let turningRight = false;
 let brake = false;
 let limit = 50;
 let redirect = false; // Track if redirection has occurred
+
+let dragged = false;
 
 
 function moveImage() {if (movingForward) {speed = Math.min(maxSpeed, speed + acceleration);} else {speed = Math.max(0, speed - deceleration);}if (brake) {speed = Math.max(0, speed - brakespeed);} else {speed = Math.max(0, speed - deceleration);}
@@ -46,17 +50,16 @@ function moveImage() {if (movingForward) {speed = Math.min(maxSpeed, speed + acc
     } else {
         img.src = "lucacar.png";
     }
-    
+  
     // Resizing the car based on distance to the hole
     let scaleFactor = calculateScale(img, hole);
-    console.log('Scale Factor:', scaleFactor);  // Debugging output
+
     img.style.width = `${scaleFactor}px`;
     img.style.height = `${scaleFactor}px`;
 
-    // Check if the car is at the center of the hole and trigger redirection once
     if (isCenter(img, hole) && !redirect) {
         hiddenLink.click();  // Redirect to another page
-        redirect = true; // Prevent further redirection
+        redirect = true; 
     }
    
     let attraction_distance_and_angle  = get_distance_and_angle(img,hole);
@@ -65,9 +68,10 @@ function moveImage() {if (movingForward) {speed = Math.min(maxSpeed, speed + acc
 
     document.getElementById("feedback").innerHTML = ` Touching title text: ${checkCollision(img,obstacle)} <br>`
     document.getElementById("feedback").innerHTML += ` Touching hole image: ${checkCollision(img,hole)} <br>`
-    document.getElementById("feedback").innerHTML += ` Dir: : ${rotation} deg <br>`
-    document.getElementById("feedback").innerHTML += ` PosX: ${posX} <br>`
-    document.getElementById("feedback").innerHTML += ` PosY: ${posY} `
+    document.getElementById("feedback").innerHTML += ` Dir: : ${Math.abs(rotation%360)} deg <br>`
+   
+    document.getElementById("feedback").innerHTML += ` PosX: ${posX.toFixed(2)} <br>`
+    document.getElementById("feedback").innerHTML += ` PosY: ${posY.toFixed(2)} `
 
 
     img.style.transform = `translate(${posX.toFixed(2)}px, ${posY.toFixed(2)}px) rotate(${rotation}deg)`;
@@ -129,7 +133,7 @@ function isCenter(obj1, obj2) {
     let centerX2 = rect2.left + rect2.width / 2;
     let centerY2 = rect2.top + rect2.height / 2;
 
-    let threshold = 40;
+    let threshold = 45;
     return Math.abs(centerX1 - centerX2) < threshold && Math.abs(centerY1 - centerY2) < threshold;
 }
 
