@@ -7,6 +7,7 @@ let deceleration = 0.05;
 let rotation = 0;
 let maxSpeed = 10;
 let brakespeed = 1;
+let clicked = false;
 
 const obstacle = document.getElementById("obstacle");
 const hole = document.getElementById("hole");
@@ -64,7 +65,9 @@ function moveImage() {if (movingForward) {speed = Math.min(maxSpeed, speed + acc
 
     document.getElementById("feedback").innerHTML = ` Touching title text: ${checkCollision(img,obstacle)} <br>`
     document.getElementById("feedback").innerHTML += ` Touching hole image: ${checkCollision(img,hole)} <br>`
-    document.getElementById("feedback").innerHTML += ` Dir: : ${rotation} deg`
+    document.getElementById("feedback").innerHTML += ` Dir: : ${rotation} deg <br>`
+    document.getElementById("feedback").innerHTML += ` PosX: ${posX} <br>`
+    document.getElementById("feedback").innerHTML += ` PosY: ${posY} `
 
 
     img.style.transform = `translate(${posX.toFixed(2)}px, ${posY.toFixed(2)}px) rotate(${rotation}deg)`;
@@ -75,7 +78,6 @@ function moveImage() {if (movingForward) {speed = Math.min(maxSpeed, speed + acc
 
 
 function get_distance_and_angle(obj1, obj2) {
-    // Calculate distance between the centers of the objects
     let rect1 = obj1.getBoundingClientRect();
     let rect2 = obj2.getBoundingClientRect();
     
@@ -101,7 +103,6 @@ function calculateScale(obj1, obj2) {
     let distance = Math.hypot(centerX2 - centerX1, centerY2 - centerY1);
     let maxDistance = Math.max(rect2.width, rect2.height);
 
-    // Adjust scaling to prevent extreme resizing
     let scale = Math.max(minSize, Math.min(100, 100 * (distance / maxDistance)));
 
     return scale;
@@ -132,7 +133,7 @@ function isCenter(obj1, obj2) {
     return Math.abs(centerX1 - centerX2) < threshold && Math.abs(centerY1 - centerY2) < threshold;
 }
 
-function handleKeyDown(event) {
+function Down(event) {
     switch (event.key) {
         case "ArrowUp":
             movingForward = true;
@@ -163,10 +164,9 @@ function handleKeyUp(event) {
         case "ArrowRight":
             turningRight = false;
             break;
-    }
-}
+    }}
 
-document.addEventListener("keydown", handleKeyDown);
+document.addEventListener("keydown", Down);
 document.addEventListener("keyup", handleKeyUp);
 
 // Start moving the image
