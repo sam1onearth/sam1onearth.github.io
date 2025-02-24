@@ -58,7 +58,7 @@ text-decoration: solid;
   height: auto;
   width: auto;
   position: absolute;  
-  top: 0px;  
+  top: 20px;  
   left:50%;  }
 
 #movable {
@@ -66,8 +66,14 @@ text-decoration: solid;
   left: 50px;
   top: 50px;
   width: 65px;
-  height: 65px;
-}
+  height: 65px;}
+#movable:hover
+{
+filter: brightness(1.5);
+} 
+
+
+
 #hole {
   height: 50%;
   width: 30%;
