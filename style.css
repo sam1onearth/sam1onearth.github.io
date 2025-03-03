@@ -25,12 +25,29 @@
 }
 
 
+#anothertext{
+  position: absolute;
+  background-color: #a1bdd6; 
+  border: 2px solid #607279; 
+  
+  padding: 15px 20px; 
+  width: fit-content; 
 
+  font-size: 18px;
+  font-weight: bold;
+  color: #385a69; 
+  text-align: center;
 
+  margin: 20px auto;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5); 
+}
+
+input{
+}
 .button{
-  background-image: linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%);
+  background-image: linear-gradient(-180deg, #3da4d0 0%, #163e4f 100%);
   box-sizing: border-box;
-  color: #FFFFFF;
+  color: #afe7e4;
   font-size: 16px;
 
   justify-content: center;
@@ -71,16 +88,24 @@ text-decoration: solid;
 {
 filter: brightness(1.5);
 } 
+@keyframes mss{
+  
+  100% {transform:  rotate(360deg);}
+  
 
-
-
+}
 #hole {
   height: 50%;
   width: 30%;
   position: absolute;  
   bottom: 0;  
   right:0;
+  animation: infinite;
+  animation-name: mss;
+  animation-duration: 30s;
+ 
 }
+
 #output {
   color: rgb(20, 40, 33);
 }

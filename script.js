@@ -5,7 +5,7 @@ let speed = 0;
 let acceleration = 0.2;
 let deceleration = 0.05;
 let rotation = 0;
-let maxSpeed = 10;
+let maxSpeed = 10.05;
 let brakespeed = 1;
 let clicked = false;
 
@@ -14,7 +14,6 @@ const hole = document.getElementById("hole");
 const hiddenLink = document.getElementById("hiddenLink");
 const minSize = 20; 
 const feedback = document.getElementById("feedback");
-
 
 let movingForward = false;
 let turningLeft = false;
@@ -47,6 +46,7 @@ function moveImage() {if (movingForward) {speed = Math.min(maxSpeed, speed + acc
     }
     if (checkCollision(img, hole)) {
         img.src = "lucacar2.png";
+        if(movingForward){rotation +=1.5;}
     } else {
         img.src = "lucacar.png";
     }
@@ -68,7 +68,7 @@ function moveImage() {if (movingForward) {speed = Math.min(maxSpeed, speed + acc
 
     document.getElementById("feedback").innerHTML = ` Touching title text: ${checkCollision(img,obstacle)} <br>`
     document.getElementById("feedback").innerHTML += ` Touching hole image: ${checkCollision(img,hole)} <br>`
-    document.getElementById("feedback").innerHTML += ` Dir: : ${Math.abs(rotation%360)} deg <br>`
+    document.getElementById("feedback").innerHTML += ` Dir: : ${Math.abs(rotation%360).toFixed(0)} deg <br>`
    
     document.getElementById("feedback").innerHTML += ` PosX: ${posX.toFixed(2)} <br>`
     document.getElementById("feedback").innerHTML += ` PosY: ${posY.toFixed(2)} `
@@ -79,6 +79,11 @@ function moveImage() {if (movingForward) {speed = Math.min(maxSpeed, speed + acc
 
     requestAnimationFrame(moveImage);
 }
+
+/*
+Main loop above, function defenition, and running down
+*/
+
 
 
 function get_distance_and_angle(obj1, obj2) {
