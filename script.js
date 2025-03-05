@@ -13,7 +13,7 @@ const obstacle = document.getElementById("obstacle");
 const hole = document.getElementById("hole");
 const hiddenLink = document.getElementById("hiddenLink");
 const minSize = 20; 
-const feedback = document.getElementById("feedback");
+const feedback = document.getElementById("feedback");   
 
 let movingForward = false;
 let turningLeft = false;
@@ -174,9 +174,22 @@ function handleKeyUp(event) {
             turningRight = false;
             break;
     }}
-
+ 
 document.addEventListener("keydown", Down);
 document.addEventListener("keyup", handleKeyUp);
 
 // Start moving the image
 moveImage();
+function checkValue(event) {
+    event.preventDefault();
+    let checkboxes = document.querySelectorAll(".checkbox");
+    let checkedCount = 0;
+    for (let checkbox of checkboxes) {
+        if (checkbox.checked) {
+            checkedCount++;
+        }
+    }
+    document.getElementById("result").innerText = "Checked checkboxes: " + checkedCount + "/10";
+    if(checkedCount==10){document.getElementById("result").innerText +="  You are the best! " };
+
+}
