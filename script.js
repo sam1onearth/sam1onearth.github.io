@@ -72,6 +72,7 @@ function moveImage() {if (movingForward) {speed = Math.min(maxSpeed, speed + acc
    
     document.getElementById("feedback").innerHTML += ` PosX: ${posX.toFixed(2)} <br>`
     document.getElementById("feedback").innerHTML += ` PosY: ${posY.toFixed(2)} `
+    document.getElementById("userAgent").innerText = "Your User-Agent: " + User();
 
 
     img.style.transform = `translate(${posX.toFixed(2)}px, ${posY.toFixed(2)}px) rotate(${rotation}deg)`;
@@ -83,7 +84,17 @@ function moveImage() {if (movingForward) {speed = Math.min(maxSpeed, speed + acc
 /*
 Main loop above, function defenition, and running down
 */
+function User(){
+    let userAgent = navigator.userAgent;
 
+    if (userAgent.includes("Chrome") && !userAgent.includes("Edg")) return "Google Chrome";
+    if (userAgent.includes("Firefox")) return "Mozilla Firefox";
+    if (userAgent.includes("Safari") && !userAgent.includes("Chrome")) return "Safari";
+    if (userAgent.includes("Edg")) return "Microsoft Edge";
+    if (userAgent.includes("Opera") || userAgent.includes("OPR")) return "Opera";
+    if (userAgent.includes("MSIE") || userAgent.includes("Trident")) return "Internet Explorer";
+    return "Unknown Browser";
+}
 
 
 function get_distance_and_angle(obj1, obj2) {
