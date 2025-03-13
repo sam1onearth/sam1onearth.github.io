@@ -1,3 +1,9 @@
+.just{
+cursor: pointer;
+}
+.just.hover{
+  filter: brightness(10);
+}
 
 .box2{
   padding: 5px;

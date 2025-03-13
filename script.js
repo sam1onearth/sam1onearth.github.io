@@ -46,7 +46,7 @@ function moveImage() {if (movingForward) {speed = Math.min(maxSpeed, speed + acc
     }
     if (checkCollision(img, hole)) {
         img.src = "lucacar2.png";
-        if(movingForward){rotation +=1.5;}
+        if(movingForward){rotation +=1.7;}
     } else {
         img.src = "lucacar.png";
     }
