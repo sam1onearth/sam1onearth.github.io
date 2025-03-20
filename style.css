@@ -1,4 +1,11 @@
-
+.carb{
+  padding: 5px;
+  border: 2px solid gray;
+  margin: 1;
+  position: relative;
+  bottom: 20px;
+  left: 20px;
+}
 .just{
 cursor: pointer;
 }
